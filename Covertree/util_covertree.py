@@ -10,6 +10,20 @@ import sys
 from scipy import sparse
 from heapq import nsmallest 
 
+# Normalize the 3D points
+def getData(mat):
+    choice = np.random.choice(mat.shape[0], 100, replace=False)
+    mat = mat[choice, :]
+    norm = normalize(mat, norm='l2')
+    return norm
+
+def distance(p, q):
+    # print "distance"
+    # print "p =", p
+    # print "q =", q
+    x = subtract(p, q)
+    return sqrt(dot(x, x))
+    
 def ball_vec(tree,nodes,pts):
     ball = np.zeros((len(tree.keys()),pts.shape[1]))
     for i in range(len(tree.keys())):
