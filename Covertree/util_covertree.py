@@ -4,6 +4,7 @@ import random
 import numpy as np
 import torch
 from sklearn.metrics.pairwise import euclidean_distances
+from sklearn.preprocessing import normalize, scale, MinMaxScaler
 from scipy.spatial.distance import euclidean,cdist
 from collections import OrderedDict
 import sys
@@ -21,8 +22,8 @@ def distance(p, q):
     # print "distance"
     # print "p =", p
     # print "q =", q
-    x = subtract(p, q)
-    return sqrt(dot(x, x))
+    x = np.subtract(p, q)
+    return np.sqrt(np.dot(x, x))
     
 def ball_vec(tree,nodes,pts):
     ball = np.zeros((len(tree.keys()),pts.shape[1]))
