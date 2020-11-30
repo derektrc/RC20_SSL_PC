@@ -8,6 +8,7 @@ from scipy.spatial.distance import euclidean,cdist
 from collections import OrderedDict
 import sys
 from scipy import sparse
+from heapq import nsmallest 
 
 def ball_vec(tree,nodes,pts):
     ball = np.zeros((len(tree.keys()),pts.shape[1]))
@@ -308,3 +309,13 @@ def filter_ball(dataset,dic,name,pc,tree,nodes,tree_ids,diff_pair_quad,diff_pair
     np.save(dir_path+dataset+"/"+name+"/"+dic+"/"+pc[:-4]+"/distance_same_pair.npy", same_level_dist)
     np.save(dir_path+dataset+"/"+name+"/"+dic+"/"+pc[:-4]+"/same_pair_label.npy", same_level_label)
     np.save(dir_path+dataset+"/"+name+"/"+dic+"/"+pc[:-4]+"/ball_count.npy", ball_count)
+
+def knn(k, pt, pts, dist_f):
+    '''Return the k-nearest points in pts to pt using a naive
+    algorithm. dist_f is a function that computes the distance between
+    2 points'''
+    return nsmallest(k, pts, lambda x: dist_f(x, pt))
+
+def nn(pt, pts, dist_f):
+    '''Like knn but return the nearest point in pts'''
+    return knn(1, pt, pts, dist_f)[0]
