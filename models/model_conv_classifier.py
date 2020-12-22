@@ -134,7 +134,7 @@ def pool_balls(feat,trees,balls,adjacency):
 
 class CoverNetCls(nn.Module):
     def __init__(self,args):
-        super(CoverNet, self).__init__()
+        super(CoverNetCls, self).__init__()
         self.args = args
         self.base = PointNet(args).cuda()
         self.Quad = QuadrantNet(args)
